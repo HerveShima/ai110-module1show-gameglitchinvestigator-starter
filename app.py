@@ -1,5 +1,6 @@
 import random
 import streamlit as st
+# FIX: Refactored all pure logic functions into logic_utils.py using Claude Agent Mode
 from logic_utils import get_range_for_difficulty, parse_guess, check_guess, update_score
 
 st.set_page_config(page_title="Glitchy Guesser", page_icon="🎮")
@@ -24,6 +25,7 @@ attempt_limit = attempt_limit_map[difficulty]
 
 low, high = get_range_for_difficulty(difficulty)
 
+# FIX: Banner now shows the actual difficulty range instead of hardcoded "1 and 100"; spotted via manual review with Claude
 st.sidebar.caption(f"Range: {low} to {high}")
 st.sidebar.caption(f"Attempts allowed: {attempt_limit}")
 
@@ -31,9 +33,11 @@ if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
 if "attempts" not in st.session_state:
+    # FIX: Changed initial attempts from 1 to 0 so attempt count is consistent with new game reset; fixed with Claude inline chat
     st.session_state.attempts = 0
 
 if "score" not in st.session_state:
+    # FIX: Score starts at 100 so penalties draw it down from a positive baseline; identified by asking Claude why score went negative
     st.session_state.score = 100
 
 if "status" not in st.session_state:
@@ -67,12 +71,15 @@ with col1:
 with col2:
     new_game = st.button("New Game 🔁")
 with col3:
+    # FIX: Changed default from True to False so hint is hidden unless user opts in; spotted via code review with Claude
     show_hint = st.checkbox("Show hint", value=False)
 
 if new_game:
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(low, high)
+    # FIX: Reset status to "playing" so new game isn't blocked by previous won/lost state; debugged with Claude
     st.session_state.status = "playing"
+    # FIX: Reset score to 100 on new game to match initial state; fixed with Claude after noticing inconsistency
     st.session_state.score = 100
     st.success("New game started.")
     st.rerun()
@@ -95,6 +102,7 @@ if submit:
     else:
         st.session_state.history.append(guess_int)
 
+        # FIX: Removed type-alternation bug that randomly cast secret to str on even attempts; fixed with Claude Agent Mode
         secret = st.session_state.secret
 
         outcome, message = check_guess(guess_int, secret)

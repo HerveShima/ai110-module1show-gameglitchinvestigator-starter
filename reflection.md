@@ -5,32 +5,40 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 ## 1. What was broken when you started?
 
 - What did the game look like the first time you ran it?
+* The game was about guessing a number, getting hints on every attempt
 - List at least two concrete bugs you noticed at the start  
   (for example: "the hints were backwards").
+  * The hints were reversed
+  * The game crushed when I pressed New Game
 
 ---
 
 ## 2. How did you use AI as a teammate?
 
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
+* Claude code
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
+* Inverted hints 
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+* I gave AI hints, so it gave me accurate suggestions
 
 ---
 
 ## 3. Debugging and testing your fixes
 
 - How did you decide whether a bug was really fixed?
+* When I passed through the code, and also ran some tests
 - Describe at least one test you ran (manual or using pytest)  
   and what it showed you about your code.
+* Checking the hints displayed on a guess, the hint displayed was go higher when the guess is greater than the guess.
 - Did AI help you design or understand any tests? How?
-
+* AI helped me find some bugs, and it also explained why the code was running in a specific way.
 ---
 
 ## 4. What did you learn about Streamlit and state?
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
-
+* It is like a visualization tool, one can use to present or display their codes that can make it accessible and meaningful to the user.
 ---
 
 ## 5. Looking ahead: your developer habits
